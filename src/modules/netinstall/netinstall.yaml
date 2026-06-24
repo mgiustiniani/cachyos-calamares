@@ -831,3 +831,128 @@
     - espeak-ng
     - mousetweaks
     - orca
+- name: "Distrobox / Podman"
+  description: "Container management with distrobox and podman"
+  description[de]: "Containerverwaltung mit distrobox und podman"
+  description[fr]: "Gestion de conteneurs avec distrobox et podman"
+  description[it]: "Gestione container con distrobox e podman"
+  description[es]: "Gestión de contenedores con distrobox y podman"
+  description[ru]: "Управление контейнерами с distrobox и podman"
+  description[zh_CN]: "使用 distrobox 和 podman 进行容器管理"
+  description[ja]: "distroboxとpodmanによるコンテナ管理"
+  description[pt_BR]: "Gerenciamento de contêineres com distrobox e podman"
+  hidden: false
+  selected: true
+  critical: false
+  packages:
+    - distrobox
+    - podman
+    - podman-dnsname
+- name: "ROCm / XDNA AI Stack"
+  description: "ROCm GPU acceleration and XDNA AI driver packages for AMD Strix Halo"
+  description[de]: "ROCm GPU-Beschleunigung und XDNA AI-Treiberpakete für AMD Strix Halo"
+  description[fr]: "Packages d'accélération GPU ROCm et pilotes XDNA AI pour AMD Strix Halo"
+  description[it]: "Pacchetti di accelerazione GPU ROCm e driver XDNA AI per AMD Strix Halo"
+  description[es]: "Paquetes de aceleración GPU ROCm y controladores XDNA AI para AMD Strix Halo"
+  description[ru]: "Пакеты ускорения GPU ROCm и драйверов XDNA AI для AMD Strix Halo"
+  description[zh_CN]: "AMD Strix Halo 的 ROCm GPU 加速和 XDNA AI 驱动包"
+  description[ja]: "AMD Strix Halo向けROCm GPUアクセラレーションとXDNA AIドライバパッケージ"
+  description[pt_BR]: "Pacotes de aceleração GPU ROCm e drivers XDNA AI para AMD Strix Halo"
+  hidden: false
+  selected: false
+  critical: true
+  packages:
+    - synapse-strixhalo-config
+    - amdgpu-install
+    - rocm-opencl-runtime
+    - rocm-hip-sdk
+    - rocm-language-runtime
+    - miopen
+    - rocblas
+    - rocminfo
+    - rocm-clang
+    - rocm-smi-lib
+    - rocm-device-libs
+    - comgr
+    - rocm-dbgapi
+    - rocm-gdb
+    - rocm-opencl
+    - rocm-opencl-runtime
+    - rocprofiler
+    - roctracer
+    - opencl-amd
+    - xdna-driver
+    - xdna-kernel
+- name: "Bosgame M5 Full"
+  description: "ROCm/XDNA stack + fan control for Bosgame M5 (AMD Strix Halo MiniPC)"
+  description[de]: "ROCm/XDNA-Stack + Lüftersteuerung für Bosgame M5 (AMD Strix Halo MiniPC)"
+  description[fr]: "Stack ROCm/XDNA + contrôle de ventilateur pour Bosgame M5 (MiniPC AMD Strix Halo)"
+  description[it]: "Stack ROCm/XDNA + controllo ventole per Bosgame M5 (MiniPC AMD Strix Halo)"
+  description[es]: "Stack ROCm/XDNA + control de ventiladores para Bosgame M5 (MiniPC AMD Strix Halo)"
+  description[ru]: "Стек ROCm/XDNA + управление вентилятором для Bosgame M5 (AMD Strix Halo MiniPC)"
+  description[zh_CN]: "Bosgame M5（AMD Strix Halo MiniPC）的 ROCm/XDNA 堆栈 + 风扇控制"
+  description[ja]: "Bosgame M5（AMD Strix Halo MiniPC）向けROCm/XDNAスタック+ファン制御"
+  description[pt_BR]: "Stack ROCm/XDNA + controle de ventoinha para Bosgame M5 (MiniPC AMD Strix Halo)"
+  hidden: false
+  selected: false
+  critical: true
+  packages:
+    - synapse-strixhalo-config
+    - amdgpu-install
+    - rocm-opencl-runtime
+    - rocm-hip-sdk
+    - rocm-language-runtime
+    - miopen
+    - rocblas
+    - rocminfo
+    - rocm-clang
+    - rocm-smi-lib
+    - rocm-device-libs
+    - comgr
+    - rocm-dbgapi
+    - rocm-gdb
+    - rocm-opencl
+    - rocm-opencl-runtime
+    - rocprofiler
+    - roctracer
+    - opencl-amd
+    - xdna-driver
+    - xdna-kernel
+    - synapse-ec-su-axb35-linux
+- name: "ROG Flow Z13-KJP Full"
+  description: "ROCm/XDNA stack + ASUS control for ROG Flow Z13-KJP"
+  description[de]: "ROCm/XDNA-Stack + ASUS-Steuerung für ROG Flow Z13-KJP"
+  description[fr]: "Stack ROCm/XDNA + contrôle ASUS pour ROG Flow Z13-KJP"
+  description[it]: "Stack ROCm/XDNA + controllo ASUS per ROG Flow Z13-KJP"
+  description[es]: "Stack ROCm/XDNA + control ASUS para ROG Flow Z13-KJP"
+  description[ru]: "Стек ROCm/XDNA + управление ASUS для ROG Flow Z13-KJP"
+  description[zh_CN]: "ROG Flow Z13-KJP 的 ROCm/XDNA 堆栈 + ASUS 控制"
+  description[ja]: "ROG Flow Z13-KJP向けROCm/XDNAスタック+ASUS制御"
+  description[pt_BR]: "Stack ROCm/XDNA + controle ASUS para ROG Flow Z13-KJP"
+  hidden: false
+  selected: false
+  critical: true
+  packages:
+    - synapse-strixhalo-config
+    - amdgpu-install
+    - rocm-opencl-runtime
+    - rocm-hip-sdk
+    - rocm-language-runtime
+    - miopen
+    - rocblas
+    - rocminfo
+    - rocm-clang
+    - rocm-smi-lib
+    - rocm-device-libs
+    - comgr
+    - rocm-dbgapi
+    - rocm-gdb
+    - rocm-opencl
+    - rocm-opencl-runtime
+    - rocprofiler
+    - roctracer
+    - opencl-amd
+    - xdna-driver
+    - xdna-kernel
+    - asusctl
+    - rog-control-center
