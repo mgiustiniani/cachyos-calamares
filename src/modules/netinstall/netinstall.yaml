@@ -848,7 +848,7 @@
     - distrobox
     - podman
     - podman-dnsname
-- name: "ROCm / XDNA AI Stack"
+- name: "strix-halo"
   description: "ROCm GPU acceleration and XDNA AI driver packages for AMD Strix Halo"
   description[de]: "ROCm GPU-Beschleunigung und XDNA AI-Treiberpakete für AMD Strix Halo"
   description[fr]: "Packages d'accélération GPU ROCm et pilotes XDNA AI pour AMD Strix Halo"
@@ -883,7 +883,7 @@
     - opencl-amd
     - xdna-driver
     - xdna-kernel
-- name: "Bosgame M5 Full"
+- name: "bosgame-m5"
   description: "ROCm/XDNA stack + fan control for Bosgame M5 (AMD Strix Halo MiniPC)"
   description[de]: "ROCm/XDNA-Stack + Lüftersteuerung für Bosgame M5 (AMD Strix Halo MiniPC)"
   description[fr]: "Stack ROCm/XDNA + contrôle de ventilateur pour Bosgame M5 (MiniPC AMD Strix Halo)"
@@ -919,7 +919,7 @@
     - xdna-driver
     - xdna-kernel
     - synapse-ec-su-axb35-linux
-- name: "ROG Flow Z13-KJP Full"
+- name: "rog-flow-z13"
   description: "ROCm/XDNA stack + ASUS control for ROG Flow Z13-KJP"
   description[de]: "ROCm/XDNA-Stack + ASUS-Steuerung für ROG Flow Z13-KJP"
   description[fr]: "Stack ROCm/XDNA + contrôle ASUS pour ROG Flow Z13-KJP"
