@@ -2,6 +2,5 @@
     <qresource prefix="/">
         <file>images/no-selection.png</file>
         <file>images/calamares.png</file>
-        <file>images/amd-strix-halo.png</file>
     </qresource>
 </RCC>

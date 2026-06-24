@@ -115,6 +115,19 @@ def run():
     elif bootloader == "systemd-boot":
         base_packages += ["systemd-boot-manager"]
 
+    # Detect CPU vendor and add the correct microcode package
+    try:
+        with open("/proc/cpuinfo") as f:
+            for line in f:
+                if line.startswith("vendor_id"):
+                    if "GenuineIntel" in line:
+                        base_packages.append("intel-ucode")
+                    else:
+                        base_packages.append("amd-ucode")
+                    break
+    except Exception as e:
+        libcalamares.utils.warning("Failed to detect CPU vendor for microcode: {!s}".format(e))
+
     if (is_root_on_zfs):
         base_packages += ["zfs-utils", "linux-cachyos-zfs", "linux-cachyos-lts-zfs"]
     elif is_root_on_btrfs:
@@ -130,6 +143,17 @@ def run():
         libcalamares.utils.debug("Root on BCACHEFS")
         base_packages += ["bcachefs-tools", "bcachefs-dkms"]
 
+
+    # Clean up stale ucode files from reused ESP to avoid pacman "exists in filesystem" conflicts
+    boot_path = os.path.join(root_mount_point, "boot")
+    for ucode_img in ["intel-ucode.img", "amd-ucode.img"]:
+        ucode_path = os.path.join(boot_path, ucode_img)
+        if os.path.exists(ucode_path):
+            try:
+                os.remove(ucode_path)
+                libcalamares.utils.debug("Removed stale ucode file: {!s}".format(ucode_path))
+            except Exception as e:
+                libcalamares.utils.warning("Failed to remove stale ucode file {!s}: {!s}".format(ucode_path, e))
 
     # run the pacstrap
     pacstrap_command = ["/etc/calamares/scripts/pacstrap_calamares", "-c", root_mount_point] + base_packages
