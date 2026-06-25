@@ -848,16 +848,16 @@
     - distrobox
     - podman
     - podman-dnsname
-- name: "strix-halo"
-  description: "ROCm GPU acceleration and XDNA AI driver packages for AMD Strix Halo"
-  description[de]: "ROCm GPU-Beschleunigung und XDNA AI-Treiberpakete für AMD Strix Halo"
-  description[fr]: "Packages d'accélération GPU ROCm et pilotes XDNA AI pour AMD Strix Halo"
-  description[it]: "Pacchetti di accelerazione GPU ROCm e driver XDNA AI per AMD Strix Halo"
-  description[es]: "Paquetes de aceleración GPU ROCm y controladores XDNA AI para AMD Strix Halo"
-  description[ru]: "Пакеты ускорения GPU ROCm и драйверов XDNA AI для AMD Strix Halo"
-  description[zh_CN]: "AMD Strix Halo 的 ROCm GPU 加速和 XDNA AI 驱动包"
-  description[ja]: "AMD Strix Halo向けROCm GPUアクセラレーションとXDNA AIドライバパッケージ"
-  description[pt_BR]: "Pacotes de aceleração GPU ROCm e drivers XDNA AI para AMD Strix Halo"
+- name: "Strix Halo platform generics"
+  description: "ROCm GPU acceleration and XDNA AI driver packages for AMD Strix Halo. Installs ROCm compute stack, AMD GPU drivers, and XDNA AI kernel drivers."
+  description[de]: "ROCm GPU-Beschleunigung und XDNA AI-Treiberpakete für AMD Strix Halo. Installiert ROCm-Compute-Stack, AMD GPU-Treiber und XDNA AI-Kerneltreiber."
+  description[fr]: "Packages d'accélération GPU ROCm et pilotes XDNA AI pour AMD Strix Halo. Installe la stack ROCm, les pilotes GPU AMD et les pilotes noyau XDNA AI."
+  description[it]: "Pacchetti di accelerazione GPU ROCm e driver XDNA AI per AMD Strix Halo. Installa lo stack ROCm, i driver GPU AMD e i driver kernel XDNA AI."
+  description[es]: "Paquetes de aceleración GPU ROCm y controladores XDNA AI para AMD Strix Halo. Instala el stack ROCm, los controladores GPU AMD y los controladores de kernel XDNA AI."
+  description[ru]: "Пакеты ускорения GPU ROCm и драйверов XDNA AI для AMD Strix Halo. Устанавливает стек ROCm, драйверы GPU AMD и драйверы ядра XDNA AI."
+  description[zh_CN]: "AMD Strix Halo 的 ROCm GPU 加速和 XDNA AI 驱动包。安装 ROCm 计算栈、AMD GPU 驱动和 XDNA AI 内核驱动。"
+  description[ja]: "AMD Strix Halo向けROCm GPUアクセラレーションとXDNA AIドライバパッケージ。ROCmコンピュートスタック、AMD GPUドライバ、XDNA AIカーネルドライバをインストールします。"
+  description[pt_BR]: "Pacotes de aceleração GPU ROCm e drivers XDNA AI para AMD Strix Halo. Instala o stack ROCm, drivers GPU AMD e drivers de kernel XDNA AI."
   hidden: false
   selected: false
   critical: true
@@ -883,76 +883,91 @@
     - opencl-amd
     - xdna-driver
     - xdna-kernel
-- name: "bosgame-m5"
-  description: "ROCm/XDNA stack + fan control for Bosgame M5 (AMD Strix Halo MiniPC)"
-  description[de]: "ROCm/XDNA-Stack + Lüftersteuerung für Bosgame M5 (AMD Strix Halo MiniPC)"
-  description[fr]: "Stack ROCm/XDNA + contrôle de ventilateur pour Bosgame M5 (MiniPC AMD Strix Halo)"
-  description[it]: "Stack ROCm/XDNA + controllo ventole per Bosgame M5 (MiniPC AMD Strix Halo)"
-  description[es]: "Stack ROCm/XDNA + control de ventiladores para Bosgame M5 (MiniPC AMD Strix Halo)"
-  description[ru]: "Стек ROCm/XDNA + управление вентилятором для Bosgame M5 (AMD Strix Halo MiniPC)"
-  description[zh_CN]: "Bosgame M5（AMD Strix Halo MiniPC）的 ROCm/XDNA 堆栈 + 风扇控制"
-  description[ja]: "Bosgame M5（AMD Strix Halo MiniPC）向けROCm/XDNAスタック+ファン制御"
-  description[pt_BR]: "Stack ROCm/XDNA + controle de ventoinha para Bosgame M5 (MiniPC AMD Strix Halo)"
+- name: "Bosgame M5"
+  description: "Full fan and power control profile optimized for Bosgame M5 (AMD Strix Halo MiniPC). Includes the ROCm/XDNA AI stack (strixhalo-core), the ec_su_axb35 kernel module for EC fan control, custom fan curves, and power mode settings. Select this if you own a Bosgame M5 and want full hardware control plus AI acceleration."
+  description[de]: "Vollständiges Lüfter- und Leistungssteuerungsprofil optimiert für Bosgame M5 (AMD Strix Halo MiniPC). Enthält den ROCm/XDNA AI-Stack (strixhalo-core), das ec_su_axb35 Kernelmodul für EC-Lüftersteuerung, benutzerdefinierte Lüfterkurven und Energieeinstellungen. Wählen Sie dies, wenn Sie einen Bosgame M5 besitzen und vollständige Hardwaresteuerung plus AI-Beschleunigung wünschen."
+  description[fr]: "Profil complet de contrôle des ventilateurs et de la puissance optimisé pour Bosgame M5 (MiniPC AMD Strix Halo). Inclut le stack ROCm/XDNA AI (strixhalo-core), le module noyau ec_su_axb35 pour le contrôle EC des ventilateurs, des courbes de ventilateur personnalisées et des paramètres de puissance. Sélectionnez ceci si vous possédez un Bosgame M5 et souhaitez un contrôle matériel complet plus une accélération IA."
+  description[it]: "Profilo completo di controllo ventole e potenza ottimizzato per Bosgame M5 (MiniPC AMD Strix Halo). Include lo stack ROCm/XDNA AI (strixhalo-core), il modulo kernel ec_su_axb35 per il controllo EC delle ventole, curve ventole personalizzate e impostazioni di potenza. Seleziona questa opzione se possiedi un Bosgame M5 e desideri il controllo completo dell'hardware più l'accelerazione AI."
+  description[es]: "Perfil completo de control de ventiladores y potencia optimizado para Bosgame M5 (MiniPC AMD Strix Halo). Incluye el stack ROCm/XDNA AI (strixhalo-core), el módulo del kernel ec_su_axb35 para el control EC de los ventiladores, curvas de ventilador personalizadas y configuraciones de energía. Seleccione esto si posee un Bosgame M5 y desea control completo del hardware más aceleración AI."
+  description[ru]: "Полный профиль управления вентиляторами и питанием, оптимизированный для Bosgame M5 (AMD Strix Halo MiniPC). Включает стек ROCm/XDNA AI (strixhalo-core), модуль ядра ec_su_axb35 для управления EC вентиляторами, пользовательские кривые вентиляторов и настройки питания. Выберите этот вариант, если у вас Bosgame M5 и вы хотите полный контроль над оборудованием плюс ускорение ИИ."
+  description[zh_CN]: "针对 Bosgame M5（AMD Strix Halo MiniPC）优化的完整风扇和电源控制配置文件。包括 ROCm/XDNA AI 堆栈（strixhalo-core）、用于 EC 风扇控制的 ec_su_axb35 内核模块、自定义风扇曲线和电源模式设置。如果您拥有 Bosgame M5 并希望完全控制硬件加上 AI 加速，请选择此项。"
+  description[ja]: "Bosgame M5（AMD Strix Halo MiniPC）用に最適化された完全なファンおよび電力制御プロファイル。ROCm/XDNA AIスタック（strixhalo-core）、ECファン制御用のec_su_axb35カーネルモジュール、カスタムファンカーブ、および電源モード設定を含みます。Bosgame M5をお持ちで、完全なハードウェア制御とAIアクセラレーションを希望される場合はこちらを選択してください。"
+  description[pt_BR]: "Perfil completo de controle de ventoinha e potência otimizado para Bosgame M5 (MiniPC AMD Strix Halo). Inclui o stack ROCm/XDNA AI (strixhalo-core), o módulo de kernel ec_su_axb35 para controle EC de ventoinhas, curvas de ventoinha personalizadas e configurações de energia. Selecione esta opção se você possui um Bosgame M5 e deseja controle total do hardware mais aceleração de IA."
   hidden: false
   selected: false
   critical: true
+  subgroups:
+    - name: "strixhalo-core"
+      description: "Core ROCm GPU acceleration and XDNA AI driver packages for AMD Strix Halo"
+      hidden: true
+      selected: true
+      critical: false
+      packages:
+        - synapse-strixhalo-config
+        - amdgpu-install
+        - rocm-opencl-runtime
+        - rocm-hip-sdk
+        - rocm-language-runtime
+        - miopen
+        - rocblas
+        - rocminfo
+        - rocm-clang
+        - rocm-smi-lib
+        - rocm-device-libs
+        - comgr
+        - rocm-dbgapi
+        - rocm-gdb
+        - rocm-opencl
+        - rocm-opencl-runtime
+        - rocprofiler
+        - roctracer
+        - opencl-amd
+        - xdna-driver
+        - xdna-kernel
   packages:
-    - synapse-strixhalo-config
-    - amdgpu-install
-    - rocm-opencl-runtime
-    - rocm-hip-sdk
-    - rocm-language-runtime
-    - miopen
-    - rocblas
-    - rocminfo
-    - rocm-clang
-    - rocm-smi-lib
-    - rocm-device-libs
-    - comgr
-    - rocm-dbgapi
-    - rocm-gdb
-    - rocm-opencl
-    - rocm-opencl-runtime
-    - rocprofiler
-    - roctracer
-    - opencl-amd
-    - xdna-driver
-    - xdna-kernel
     - synapse-ec-su-axb35-linux
-- name: "rog-flow-z13"
-  description: "ROCm/XDNA stack + ASUS control for ROG Flow Z13-KJP"
-  description[de]: "ROCm/XDNA-Stack + ASUS-Steuerung für ROG Flow Z13-KJP"
-  description[fr]: "Stack ROCm/XDNA + contrôle ASUS pour ROG Flow Z13-KJP"
-  description[it]: "Stack ROCm/XDNA + controllo ASUS per ROG Flow Z13-KJP"
-  description[es]: "Stack ROCm/XDNA + control ASUS para ROG Flow Z13-KJP"
-  description[ru]: "Стек ROCm/XDNA + управление ASUS для ROG Flow Z13-KJP"
-  description[zh_CN]: "ROG Flow Z13-KJP 的 ROCm/XDNA 堆栈 + ASUS 控制"
-  description[ja]: "ROG Flow Z13-KJP向けROCm/XDNAスタック+ASUS制御"
-  description[pt_BR]: "Stack ROCm/XDNA + controle ASUS para ROG Flow Z13-KJP"
+- name: "ROG Flow Z13-KJP"
+  description: "Full fan and power control profile optimized for ASUS ROG Flow Z13-KJP (AMD Strix Halo laptop). Includes the ROCm/XDNA AI stack (strixhalo-core), the ec_su_axb35 kernel module, asusctl and rog-control-center for ASUS hardware control, custom fan curves, and power mode settings. Select this if you own a ROG Flow Z13-KJP and want full hardware control plus AI acceleration."
+  description[de]: "Vollständiges Lüfter- und Leistungssteuerungsprofil optimiert für ASUS ROG Flow Z13-KJP (AMD Strix Halo Laptop). Enthält den ROCm/XDNA AI-Stack (strixhalo-core), das ec_su_axb35 Kernelmodul, asusctl und rog-control-center für ASUS-Hardwaresteuerung, benutzerdefinierte Lüfterkurven und Energieeinstellungen. Wählen Sie dies, wenn Sie ein ROG Flow Z13-KJP besitzen und vollständige Hardwaresteuerung plus AI-Beschleunigung wünschen."
+  description[fr]: "Profil complet de contrôle des ventilateurs et de la puissance optimisé pour ASUS ROG Flow Z13-KJP (laptop AMD Strix Halo). Inclut le stack ROCm/XDNA AI (strixhalo-core), le module noyau ec_su_axb35, asusctl et rog-control-center pour le contrôle matériel ASUS, des courbes de ventilateur personnalisées et des paramètres de puissance. Sélectionnez ceci si vous possédez un ROG Flow Z13-KJP et souhaitez un contrôle matériel complet plus une accélération IA."
+  description[it]: "Profilo completo di controllo ventole e potenza ottimizzato per ASUS ROG Flow Z13-KJP (laptop AMD Strix Halo). Include lo stack ROCm/XDNA AI (strixhalo-core), il modulo kernel ec_su_axb35, asusctl e rog-control-center per il controllo hardware ASUS, curve ventole personalizzate e impostazioni di potenza. Seleziona questa opzione se possiedi un ROG Flow Z13-KJP e desideri il controllo completo dell'hardware più l'accelerazione AI."
+  description[es]: "Perfil completo de control de ventiladores y potencia optimizado para ASUS ROG Flow Z13-KJP (laptop AMD Strix Halo). Incluye el stack ROCm/XDNA AI (strixhalo-core), el módulo del kernel ec_su_axb35, asusctl y rog-control-center para el control hardware ASUS, curvas de ventilador personalizadas y configuraciones de energía. Seleccione esto si posee un ROG Flow Z13-KJP y desea control completo del hardware más aceleración AI."
+  description[ru]: "Полный профиль управления вентиляторами и питанием, оптимизированный для ASUS ROG Flow Z13-KJP (ноутбук AMD Strix Halo). Включает стек ROCm/XDNA AI (strixhalo-core), модуль ядра ec_su_axb35, asusctl и rog-control-center для управления аппаратурой ASUS, пользовательские кривые вентиляторов и настройки питания. Выберите этот вариант, если у вас ROG Flow Z13-KJP и вы хотите полный контроль над оборудованием плюс ускорение ИИ."
+  description[zh_CN]: "针对 ASUS ROG Flow Z13-KJP（AMD Strix Halo 笔记本）优化的完整风扇和电源控制配置文件。包括 ROCm/XDNA AI 堆栈（strixhalo-core）、ec_su_axb35 内核模块、asusctl 和 rog-control-center 用于 ASUS 硬件控制、自定义风扇曲线和电源模式设置。如果您拥有 ROG Flow Z13-KJP 并希望完全控制硬件加上 AI 加速，请选择此项。"
+  description[ja]: "ASUS ROG Flow Z13-KJP（AMD Strix Halo ノートPC）用に最適化された完全なファンおよび電力制御プロファイル。ROCm/XDNA AIスタック（strixhalo-core）、ec_su_axb35カーネルモジュール、ASUSハードウェア制御用のasusctlとrog-control-center、カスタムファンカーブ、および電源モード設定を含みます。ROG Flow Z13-KJPをお持ちで、完全なハードウェア制御とAIアクセラレーションを希望される場合はこちらを選択してください。"
+  description[pt_BR]: "Perfil completo de controle de ventoinha e potência otimizado para ASUS ROG Flow Z13-KJP (laptop AMD Strix Halo). Inclui o stack ROCm/XDNA AI (strixhalo-core), o módulo de kernel ec_su_axb35, asusctl e rog-control-center para controle de hardware ASUS, curvas de ventoinha personalizadas e configurações de energia. Selecione esta opção se você possui um ROG Flow Z13-KJP e deseja controle total do hardware mais aceleração de IA."
   hidden: false
   selected: false
   critical: true
+  subgroups:
+    - name: "strixhalo-core"
+      description: "Core ROCm GPU acceleration and XDNA AI driver packages for AMD Strix Halo"
+      hidden: true
+      selected: true
+      critical: false
+      packages:
+        - synapse-strixhalo-config
+        - amdgpu-install
+        - rocm-opencl-runtime
+        - rocm-hip-sdk
+        - rocm-language-runtime
+        - miopen
+        - rocblas
+        - rocminfo
+        - rocm-clang
+        - rocm-smi-lib
+        - rocm-device-libs
+        - comgr
+        - rocm-dbgapi
+        - rocm-gdb
+        - rocm-opencl
+        - rocm-opencl-runtime
+        - rocprofiler
+        - roctracer
+        - opencl-amd
+        - xdna-driver
+        - xdna-kernel
   packages:
-    - synapse-strixhalo-config
-    - amdgpu-install
-    - rocm-opencl-runtime
-    - rocm-hip-sdk
-    - rocm-language-runtime
-    - miopen
-    - rocblas
-    - rocminfo
-    - rocm-clang
-    - rocm-smi-lib
-    - rocm-device-libs
-    - comgr
-    - rocm-dbgapi
-    - rocm-gdb
-    - rocm-opencl
-    - rocm-opencl-runtime
-    - rocprofiler
-    - roctracer
-    - opencl-amd
-    - xdna-driver
-    - xdna-kernel
+    - synapse-ec-su-axb35-linux
     - asusctl
     - rog-control-center
