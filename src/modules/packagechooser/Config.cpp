@@ -170,6 +170,27 @@ Config::updateGlobalStorage( const QStringList& selected ) const
         cDebug() << m_defaultId << "groups to select in netinstall" << selected;
         auto* gs = Calamares::JobQueue::instance()->globalStorage();
 
+        // Build the list of netinstall groups to select.
+        // If an item has a "netinstall" -> "select" list in its config,
+        // use that instead of the item's id.
+        QStringList groupsToSelect;
+        for ( const auto& id : selected )
+        {
+            QVariantMap netData = m_model->getNetinstallDataForName( id );
+            if ( !netData.isEmpty() && netData.contains( "select" ) )
+            {
+                const QVariantList selectList = netData[ "select" ].toList();
+                for ( const auto& g : selectList )
+                {
+                    groupsToSelect.append( g.toString() );
+                }
+            }
+            else
+            {
+                groupsToSelect.append( id );
+            }
+        }
+
         QStringList currentNetinstallSelect;
         if ( gs->contains( "netinstallSelect" ) )
         {
@@ -194,9 +215,9 @@ Config::updateGlobalStorage( const QStringList& selected ) const
             }
         }
 
-        currentNetinstallSelect += selected;
+        currentNetinstallSelect += groupsToSelect;
         gs->insert( "netinstallSelect", currentNetinstallSelect );
-        gs->insert( previousSelectionKey, selected );
+        gs->insert( previousSelectionKey, groupsToSelect );
     }
     else
     {

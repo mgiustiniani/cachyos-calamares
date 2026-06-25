@@ -117,6 +117,7 @@ public:
      *
      * returns a list of netinstall data or an emply list if none is found
      */
+    QVariantMap getNetinstallDataForName( const QString& id ) const;
     QVariantList getNetinstallDataForNames( const QStringList& ids ) const;
 
     enum Roles : int
