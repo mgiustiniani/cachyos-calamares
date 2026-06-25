@@ -25,7 +25,7 @@ struct PackageItem
     Calamares::Locale::TranslatedString description;
     QString screenshotPath;
     QStringList packageNames;
-    QVariantMap netinstallData;
+    QVariantList netinstallData;
 
     /// @brief Create blank PackageItem
     PackageItem();
