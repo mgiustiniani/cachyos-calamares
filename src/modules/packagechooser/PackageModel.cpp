@@ -144,19 +144,6 @@ PackageListModel::getInstallPackagesForNames( const QStringList& ids ) const
     return l;
 }
 
-QVariantMap
-PackageListModel::getNetinstallDataForName( const QString& id ) const
-{
-    for ( auto& p : m_packages )
-    {
-        if ( p.id == id )
-        {
-            return p.netinstallData;
-        }
-    }
-    return QVariantMap();
-}
-
 QVariantList
 PackageListModel::getNetinstallDataForNames( const QStringList& ids ) const
 {
