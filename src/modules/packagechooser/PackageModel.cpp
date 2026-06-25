@@ -25,14 +25,6 @@ getSubMap( const QVariantMap& map, const QString& key )
     return Calamares::getSubMap( map, key, success );
 }
 
-/** @brief A wrapper for Calamares::getList that excludes the success param
- */
-static QVariantList
-getSubList( const QVariantMap& map, const QString& key )
-{
-    return Calamares::getList( map, key );
-}
-
 static QString
 resolveScreenshotPath( const QString& path )
 {
@@ -83,7 +75,7 @@ PackageItem::PackageItem( const QVariantMap& item_map )
     , description( Calamares::Locale::TranslatedString( item_map, "description" ) )
     , screenshotPath( resolveScreenshotPath( Calamares::getString( item_map, "screenshot" ) ) )
     , packageNames( Calamares::getStringList( item_map, "packages" ) )
-    , netinstallData( getSubList( item_map, "netinstall" ) )
+    , netinstallData( getSubMap( item_map, "netinstall" ) )
 {
     if ( name.isEmpty() && id.isEmpty() )
     {
@@ -162,12 +154,9 @@ PackageListModel::getNetinstallDataForNames( const QStringList& ids ) const
         {
             if ( !p.netinstallData.isEmpty() )
             {
-                for ( const auto& group : p.netinstallData )
-                {
-                    QVariantMap newData = group.toMap();
-                    newData[ "source" ] = QStringLiteral( "packageChooser" );
-                    l.append( newData );
-                }
+                QVariantMap newData = p.netinstallData;
+                newData[ "source" ] = QStringLiteral( "packageChooser" );
+                l.append( newData );
             }
         }
     }
