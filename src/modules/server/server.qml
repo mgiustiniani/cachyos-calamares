@@ -3,6 +3,12 @@
  *   SPDX-FileCopyrightText: 2026 Mario Giustiniani <mariogiustiniani@gmail.com>
  *   SPDX-License-Identifier: GPL-3.0-or-later
  *
+ * Server configuration module — shows SSH and VNC sections
+ * only if the corresponding packages are selected in netinstall.
+ *
+ * - openssh → SSH section
+ * - wayvnc  → VNC section
+ *
  */
 
 import io.calamares.ui 1.0
@@ -16,6 +22,12 @@ import QtQuick.Controls.Material 2.1
 Item {
     width: 740
     height: 420
+
+    // Check which packages are selected in netinstall
+    // globalStorage key "netinstallPackages" contains the list
+    property var selectedPackages: configStorage.get("netinstallPackages") || []
+    property bool hasSshd: selectedPackages.indexOf("openssh") !== -1
+    property bool hasVnc:  selectedPackages.indexOf("wayvnc") !== -1
 
     Flickable {
         id: flick
@@ -38,6 +50,7 @@ Item {
             GroupBox {
                 title: "SSH"
                 Layout.fillWidth: true
+                visible: hasSshd
 
                 ColumnLayout {
                     spacing: 8
@@ -70,6 +83,7 @@ Item {
             GroupBox {
                 title: "VNC"
                 Layout.fillWidth: true
+                visible: hasVnc
 
                 ColumnLayout {
                     spacing: 8
@@ -99,10 +113,11 @@ Item {
                 }
             }
 
-            // ── LLM Section (placeholder) ─────────────────────
+            // ── LLM Section (placeholder, hidden for now) ─────
             GroupBox {
                 title: "LLM (AI)"
                 Layout.fillWidth: true
+                visible: false  // hidden — will be enabled later
 
                 ColumnLayout {
                     spacing: 8
