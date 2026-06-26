@@ -182,6 +182,7 @@
           - vim
           - openssh
           - wayvnc
+          - x11vnc
 - name: "KDE-Desktop"
   description: "KDE-Plasma Desktop - Simple by default, powerful when needed."
   description[de]: "Nutze Plasma, um im Internet zu surfen, mit Kollegen, Freunden und Familie in Kontakt zu bleiben, Verwalte deine Dateien, genieße Musik und Video und sei kreativ und produktiv bei der Arbeit. Tu das alles in einer schönen Umgebung, die sich Deinen Bedürfnissen anpasst, und mit der Sicherheit, dem Schutz der Privatsphäre und dem Seelenfrieden, den die beste Freie Open-Source-Software zu bieten hat."

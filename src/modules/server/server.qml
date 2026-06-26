@@ -27,7 +27,7 @@ Item {
     // globalStorage key "netinstallPackages" contains the list
     property var selectedPackages: configStorage.get("netinstallPackages") || []
     property bool hasSshd: selectedPackages.indexOf("openssh") !== -1
-    property bool hasVnc:  selectedPackages.indexOf("wayvnc") !== -1
+    property bool hasVnc:  selectedPackages.indexOf("wayvnc") !== -1 || selectedPackages.indexOf("x11vnc") !== -1
 
     Flickable {
         id: flick
