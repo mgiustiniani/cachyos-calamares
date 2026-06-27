@@ -28,6 +28,7 @@ Item {
     property var selectedPackages: configStorage.get("netinstallPackages") || []
     property bool hasSshd: selectedPackages.indexOf("openssh") !== -1
     property bool hasVnc:  selectedPackages.indexOf("wayvnc") !== -1 || selectedPackages.indexOf("x11vnc") !== -1
+    property bool hasDs4:  selectedPackages.indexOf("synapse-ds4-git") !== -1
 
     Flickable {
         id: flick
@@ -113,25 +114,32 @@ Item {
                 }
             }
 
-            // ── LLM Section (placeholder, hidden for now) ─────
+            // ── LLM Section (DS4 inference engine) ────────────
             GroupBox {
-                title: "LLM (AI)"
+                title: "LLM (DS4)"
                 Layout.fillWidth: true
-                visible: false  // hidden — will be enabled later
+                visible: hasDs4
 
                 ColumnLayout {
                     spacing: 8
 
                     CheckBox {
                         id: llmEnabled
-                        text: "Enable LLM service"
+                        text: "Enable DS4 inference server"
                         checked: false
                     }
 
-                    Label { text: "Model:" }
+                    Label { text: "Model quant:" }
                     ComboBox {
                         id: llmModel
-                        model: ["Llama 3.2 8B", "Llama 3.2 3B", "Mistral 7B", "Custom"]
+                        model: ["q2-imatrix (81 GB)", "q2-q4-imatrix (98 GB)", "q4-imatrix (153 GB)"]
+                        enabled: llmEnabled.checked
+                    }
+
+                    Label { text: "Mode:" }
+                    ComboBox {
+                        id: llmMode
+                        model: ["Local (127.0.0.1)", "Remote (0.0.0.0)"]
                         enabled: llmEnabled.checked
                     }
 
@@ -140,7 +148,7 @@ Item {
                         id: llmPort
                         from: 1024
                         to: 65535
-                        value: 8080
+                        value: 8000
                         enabled: llmEnabled.checked
                     }
                 }
@@ -156,7 +164,8 @@ Item {
                     "vnc_port": vncPort.value,
                     "vnc_password": vncPassword.text,
                     "llm_enabled": llmEnabled.checked,
-                    "llm_model": llmModel.currentText,
+                    "llm_model": llmModel.currentIndex,
+                    "llm_mode": llmMode.currentIndex,
                     "llm_port": llmPort.value
                 }
                 configStorage.set("server_config", config)
