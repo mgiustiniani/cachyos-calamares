@@ -28,7 +28,12 @@ Item {
     property var selectedPackages: configStorage.get("netinstallPackages") || []
     property bool hasSshd: selectedPackages.indexOf("openssh") !== -1
     property bool hasVnc:  selectedPackages.indexOf("wayvnc") !== -1 || selectedPackages.indexOf("x11vnc") !== -1
-    property bool hasDs4:  selectedPackages.indexOf("synapse-ds4-git") !== -1
+
+    // LLM (DS4) visible only if ROCm/AI was selected in packagechooser@ai
+    // packagechooser stores selection id in globalStorage key "packagechooser_ai"
+    property var aiSelection: configStorage.get("packagechooser_ai") || ""
+    property bool hasRocm: aiSelection !== "" && aiSelection !== " "
+    property bool hasDs4:  hasRocm && selectedPackages.indexOf("ds4-git") !== -1
 
     Flickable {
         id: flick
