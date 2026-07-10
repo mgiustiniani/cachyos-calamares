@@ -188,13 +188,12 @@
           - deskflow
           - synapse-ds4-git
 - name: "Java development tools"
-  description: "GraalVM JDK, Maven, Gradle and RefactorKit toolchain for Java/JVM development. GraalVM satisfies Gradle's Java 21+ runtime requirement while RefactorKit provides deterministic Java refactoring from the CLI."
-  description[it]: "Toolchain GraalVM JDK, Maven, Gradle e RefactorKit per sviluppo Java/JVM. GraalVM soddisfa il requisito Java 21+ di Gradle, mentre RefactorKit fornisce refactoring Java deterministico da CLI."
+  description: "Maven, Gradle and RefactorKit toolchain for Java/JVM development. RefactorKit ships with its own runtime and provides deterministic Java refactoring from the CLI."
+  description[it]: "Toolchain Maven, Gradle e RefactorKit per sviluppo Java/JVM. RefactorKit include il proprio runtime e fornisce refactoring Java deterministico da CLI."
   hidden: false
   selected: false
   critical: false
   packages:
-    - synapse-jdk25-graalvm-bin
     - maven
     - gradle
     - synapse-refactorkit
