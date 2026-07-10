@@ -187,6 +187,17 @@
           - input-leap
           - deskflow
           - synapse-ds4-git
+- name: "Java development tools"
+  description: "GraalVM JDK, Maven, Gradle and RefactorKit toolchain for Java/JVM development. GraalVM satisfies Gradle's Java 21+ runtime requirement while RefactorKit provides deterministic Java refactoring from the CLI."
+  description[it]: "Toolchain GraalVM JDK, Maven, Gradle e RefactorKit per sviluppo Java/JVM. GraalVM soddisfa il requisito Java 21+ di Gradle, mentre RefactorKit fornisce refactoring Java deterministico da CLI."
+  hidden: false
+  selected: false
+  critical: false
+  packages:
+    - synapse-jdk25-graalvm-bin
+    - maven
+    - gradle
+    - synapse-refactorkit
 - name: "KDE-Desktop"
   description: "KDE-Plasma Desktop - Simple by default, powerful when needed."
   description[de]: "Nutze Plasma, um im Internet zu surfen, mit Kollegen, Freunden und Familie in Kontakt zu bleiben, Verwalte deine Dateien, genieße Musik und Video und sei kreativ und produktiv bei der Arbeit. Tu das alles in einer schönen Umgebung, die sich Deinen Bedürfnissen anpasst, und mit der Sicherheit, dem Schutz der Privatsphäre und dem Seelenfrieden, den die beste Freie Open-Source-Software zu bieten hat."
