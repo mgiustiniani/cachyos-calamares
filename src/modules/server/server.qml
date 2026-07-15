@@ -9,7 +9,7 @@
  * - SSH is shown only when openssh is included by netinstall.
  * - VNC is shown only when wayvnc or x11vnc is included by netinstall.
  * - Voice AI is shown only when its optional ROCm package was selected.
- * - DS4 and TRELLIS.2 are shown only when a Strix Halo AI profile was chosen.
+ * - Synapse Dub, DS4, and TRELLIS.2 are shown only for Strix Halo ROCm profiles.
  *
  * The Server tab is the product surface for ROCm-backed AI/server products.
  */
@@ -51,6 +51,7 @@ Item {
 
     property bool hasDs4: hasStrixHalo
     property bool hasVoice: containsPackage("synapse-voice-ai-rocm")
+    property bool hasDub: hasStrixHalo
     property bool hasTrellis: hasStrixHalo
 
     function saveConfig() {
@@ -73,6 +74,12 @@ Item {
             "voice_bind_mode": voiceBindMode.currentIndex,
             "voice_port": voicePort.value,
             "voice_language": voiceLanguage.currentText,
+            "dub_enabled": hasDub ? dubEnabled.checked : false,
+            "dub_license_accepted": hasDub ? dubLicenseAccepted.checked : false,
+            "dub_model_mode": dubModelMode.currentIndex,
+            "dub_model_root": dubModelRoot.text,
+            "dub_translation_endpoint": dubTranslationEndpoint.text,
+            "dub_translation_model": dubTranslationModel.text,
             "trellis_enabled": hasTrellis ? trellisEnabled.checked : false,
             "trellis_download_models": trellisDownloadModels.checked,
             "trellis_model_root": trellisModelRoot.text,
@@ -86,7 +93,7 @@ Item {
     Flickable {
         id: flick
         anchors.fill: parent
-        contentHeight: 1550
+        contentHeight: 2100
 
         ScrollBar.vertical: ScrollBar {
             id: fscrollbar
@@ -237,14 +244,14 @@ Item {
                         Layout.fillWidth: true
                     }
 
-                    Label { text: "Model usage:" }
+                    Label { text: "Model acquisition:" }
                     ComboBox {
                         id: voiceModelMode
-                        model: ["Use external model archive", "Copy to installed system"]
+                        model: ["Use external model archive", "Download from Internet"]
                         enabled: voiceEnabled.checked
                     }
 
-                    Label { text: "Local model root:" }
+                    Label { text: "Installed model root:" }
                     TextField {
                         id: voiceModelRoot
                         text: "/var/lib/synapse/voice-ai/models"
@@ -287,6 +294,74 @@ Item {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
                         text: "Voice samples are enrolled after first login and remain private in the user's local data directory."
+                    }
+                }
+            }
+
+            // ── Synapse Dub Section ───────────────────────────
+            GroupBox {
+                title: "AI / ROCm — Custom Video Dubbing"
+                Layout.fillWidth: true
+                visible: hasDub
+
+                ColumnLayout {
+                    spacing: 8
+
+                    CheckBox {
+                        id: dubLicenseAccepted
+                        text: "I accept the non-commercial XTTS-v2 and Wav2Lip model licenses"
+                        checked: false
+                        onCheckedChanged: if (!checked) dubEnabled.checked = false
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        text: "Required licenses: https://coqui.ai/cpml.txt and the Wav2Lip non-commercial model terms."
+                    }
+
+                    CheckBox {
+                        id: dubEnabled
+                        text: "Install a complete and ready-to-use Synapse Dub pipeline"
+                        checked: false
+                        enabled: dubLicenseAccepted.checked
+                    }
+
+                    Label { text: "Model acquisition:" }
+                    ComboBox {
+                        id: dubModelMode
+                        model: ["Download from Internet", "Use existing model directory"]
+                        enabled: dubEnabled.checked
+                    }
+
+                    Label { text: "Model root:" }
+                    TextField {
+                        id: dubModelRoot
+                        text: "/var/lib/synapse/dub/models"
+                        enabled: dubEnabled.checked
+                        Layout.fillWidth: true
+                    }
+
+                    Label { text: "OpenAI-compatible dialogue/translation endpoint:" }
+                    TextField {
+                        id: dubTranslationEndpoint
+                        text: "http://192.168.5.157:8000/v1"
+                        enabled: dubEnabled.checked
+                        Layout.fillWidth: true
+                    }
+
+                    Label { text: "Dialogue model:" }
+                    TextField {
+                        id: dubTranslationModel
+                        text: "deepseek-v4-flash"
+                        enabled: dubEnabled.checked
+                        Layout.fillWidth: true
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        text: "After installation, use 'synapse-dub custom' to turn real footage into a completely new scripted and lip-synchronized video."
                     }
                 }
             }
