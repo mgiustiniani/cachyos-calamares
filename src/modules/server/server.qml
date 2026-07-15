@@ -80,6 +80,9 @@ Item {
             "dub_model_root": dubModelRoot.text,
             "dub_translation_endpoint": dubTranslationEndpoint.text,
             "dub_translation_model": dubTranslationModel.text,
+            "generative_enabled": hasDub && dubEnabled.checked ? generativeEnabled.checked : false,
+            "generative_model_mode": generativeModelMode.currentIndex,
+            "generative_model_root": generativeModelRoot.text,
             "trellis_enabled": hasTrellis ? trellisEnabled.checked : false,
             "trellis_download_models": trellisDownloadModels.checked,
             "trellis_model_root": trellisModelRoot.text,
@@ -93,7 +96,7 @@ Item {
     Flickable {
         id: flick
         anchors.fill: parent
-        contentHeight: 2100
+        contentHeight: 2350
 
         ScrollBar.vertical: ScrollBar {
             id: fscrollbar
@@ -361,7 +364,35 @@ Item {
                     Label {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
-                        text: "After installation, use 'synapse-dub custom' to turn real footage into a completely new scripted and lip-synchronized video."
+                        text: "'synapse-dub custom' rewrites dialogue while preserving footage. Enable the generative backend below to create genuinely new visual scenes."
+                    }
+
+                    CheckBox {
+                        id: generativeEnabled
+                        text: "Install Wan2.1 VACE generative visual production (about 19 GB of models)"
+                        checked: false
+                        enabled: dubEnabled.checked
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        text: "Wan2.1 VACE 1.3B and its Diffusers model are Apache-2.0 licensed. It creates new frames, scenes, actions, backgrounds, and camera motion from source reference frames."
+                    }
+
+                    Label { text: "Generative model acquisition:" }
+                    ComboBox {
+                        id: generativeModelMode
+                        model: ["Download from Internet", "Use existing Wan VACE model directory"]
+                        enabled: generativeEnabled.checked
+                    }
+
+                    Label { text: "Wan VACE model root:" }
+                    TextField {
+                        id: generativeModelRoot
+                        text: "/var/lib/synapse/video-gen/models/wan-vace-1.3b"
+                        enabled: generativeEnabled.checked
+                        Layout.fillWidth: true
                     }
                 }
             }
