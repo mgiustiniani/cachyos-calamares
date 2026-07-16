@@ -80,6 +80,13 @@ Item {
             "dub_model_root": dubModelRoot.text,
             "dub_translation_endpoint": dubTranslationEndpoint.text,
             "dub_translation_model": dubTranslationModel.text,
+            "translation_enabled": hasDub && dubEnabled.checked ? translationEnabled.checked : false,
+            "translation_license_accepted": translationLicenseAccepted.checked,
+            "translation_model_mode": translationModelMode.currentIndex,
+            "translation_model_source": translationModelSource.text,
+            "translation_model_root": translationModelRoot.text,
+            "translation_bind_mode": translationBindMode.currentIndex,
+            "translation_port": translationPort.value,
             "generative_enabled": hasDub && dubEnabled.checked ? generativeEnabled.checked : false,
             "generative_model_mode": generativeModelMode.currentIndex,
             "generative_model_root": generativeModelRoot.text,
@@ -96,7 +103,7 @@ Item {
     Flickable {
         id: flick
         anchors.fill: parent
-        contentHeight: 2350
+        contentHeight: 2750
 
         ScrollBar.vertical: ScrollBar {
             id: fscrollbar
@@ -365,6 +372,67 @@ Item {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
                         text: "'synapse-dub custom' rewrites dialogue while preserving footage. Enable the generative backend below to create genuinely new visual scenes."
+                    }
+
+                    CheckBox {
+                        id: translationLicenseAccepted
+                        text: "I accept the SeamlessM4T-v2-large CC-BY-NC-4.0 model license"
+                        checked: false
+                        enabled: dubEnabled.checked
+                        onCheckedChanged: if (!checked) translationEnabled.checked = false
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        text: "SeamlessM4T-v2-large model license: https://creativecommons.org/licenses/by-nc/4.0/"
+                    }
+
+                    CheckBox {
+                        id: translationEnabled
+                        text: "Install the specialist SeamlessM4T ROCm translation server"
+                        checked: false
+                        enabled: dubEnabled.checked && translationLicenseAccepted.checked
+                    }
+
+                    Label { text: "Translation model acquisition:" }
+                    ComboBox {
+                        id: translationModelMode
+                        model: ["Download from Internet", "Import existing model directory"]
+                        enabled: translationEnabled.checked
+                    }
+
+                    Label { text: "Existing model source:"; visible: translationModelMode.currentIndex === 1 }
+                    TextField {
+                        id: translationModelSource
+                        text: "/run/media/paperboy/models/models/safetensors/translation/seamless-m4t-v2-large"
+                        visible: translationModelMode.currentIndex === 1
+                        enabled: translationEnabled.checked
+                        Layout.fillWidth: true
+                    }
+
+                    Label { text: "Installed translation model root:" }
+                    TextField {
+                        id: translationModelRoot
+                        text: "/var/lib/synapse/translate/models/seamless-m4t-v2-large"
+                        enabled: translationEnabled.checked
+                        Layout.fillWidth: true
+                    }
+
+                    Label { text: "Translation server exposure:" }
+                    ComboBox {
+                        id: translationBindMode
+                        model: ["Local (127.0.0.1)", "Remote (0.0.0.0)"]
+                        enabled: translationEnabled.checked
+                    }
+
+                    Label { text: "Translation server port:" }
+                    SpinBox {
+                        id: translationPort
+                        from: 1024
+                        to: 65535
+                        value: 8091
+                        enabled: translationEnabled.checked
                     }
 
                     CheckBox {
