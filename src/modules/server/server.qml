@@ -405,7 +405,7 @@ Item {
                     Label { text: "Existing model source:"; visible: translationModelMode.currentIndex === 1 }
                     TextField {
                         id: translationModelSource
-                        text: "/run/media/paperboy/models/models/safetensors/translation/seamless-m4t-v2-large"
+                        text: "/run/media/liveuser/models/models/safetensors/translation/seamless-m4t-v2-large"
                         visible: translationModelMode.currentIndex === 1
                         enabled: translationEnabled.checked
                         Layout.fillWidth: true
