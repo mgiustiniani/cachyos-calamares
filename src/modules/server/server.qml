@@ -50,6 +50,7 @@ Item {
                                 containsPackage("rocm-hip-sdk")
 
     property bool hasDs4: hasStrixHalo
+    property bool hasXdna: hasStrixHalo && containsPackage("synapse-xdna-runtime")
     property bool hasVoice: containsPackage("synapse-voice-ai-rocm")
     property bool hasDub: hasStrixHalo
     property bool hasTrellis: hasStrixHalo
@@ -66,6 +67,11 @@ Item {
             "llm_model": llmModel.currentIndex,
             "llm_mode": llmMode.currentIndex,
             "llm_port": llmPort.value,
+            "xdna_import_enabled": hasXdna ? xdnaImportEnabled.checked : false,
+            "xdna_eula_accepted": hasXdna ? xdnaEulaAccepted.checked : false,
+            "xdna_runtime_source": xdnaRuntimeSource.text,
+            "xdna_license_source": xdnaLicenseSource.text,
+            "xdna_runtime_root": xdnaRuntimeRoot.text,
             "voice_enabled": hasVoice ? voiceEnabled.checked : false,
             "voice_model_source": voiceModelSource.text,
             "voice_model_mode": voiceModelMode.currentIndex,
@@ -103,7 +109,7 @@ Item {
     Flickable {
         id: flick
         anchors.fill: parent
-        contentHeight: 2750
+        contentHeight: 3350
 
         ScrollBar.vertical: ScrollBar {
             id: fscrollbar
@@ -226,6 +232,69 @@ Item {
                         to: 65535
                         value: 8000
                         enabled: llmEnabled.checked
+                    }
+                }
+            }
+
+            // ── XDNA2 / Ryzen AI SDK Section ─────────────────
+            GroupBox {
+                title: "AI / NPU — AMD Ryzen AI Software"
+                Layout.fillWidth: true
+                visible: hasXdna
+
+                ColumnLayout {
+                    spacing: 8
+
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        text: "Optional post-install import from a private USB drive. The AMD SDK archive and Xilinx license are never included in the Synapse ISO or pacman repository."
+                    }
+
+                    CheckBox {
+                        id: xdnaEulaAccepted
+                        text: "I accept the AMD Ryzen AI 1.7.1 and third-party EULAs"
+                        checked: false
+                        onCheckedChanged: if (!checked) xdnaImportEnabled.checked = false
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        text: "AMD EULA: https://account.amd.com/content/dam/account/en/licenses/download/amd-end-user-license-agreement.pdf\nThird-party notices: https://account.amd.com/content/dam/account/en/licenses/download/ryzen-ai-1.7.1-linux-tpn-license.pdf"
+                    }
+
+                    CheckBox {
+                        id: xdnaImportEnabled
+                        text: "Find the private USB automatically and install the XDNA ONNX runtime"
+                        checked: false
+                        enabled: xdnaEulaAccepted.checked
+                    }
+
+                    Label { text: "Ryzen AI SDK source:" }
+                    TextField {
+                        id: xdnaRuntimeSource
+                        text: "auto"
+                        placeholderText: "auto or path to ryzen_ai-1.7.1.tgz / model_source.tar.gz"
+                        enabled: xdnaImportEnabled.checked
+                        Layout.fillWidth: true
+                    }
+
+                    Label { text: "Xilinx license source:" }
+                    TextField {
+                        id: xdnaLicenseSource
+                        text: "auto"
+                        placeholderText: "auto or path to Xilinx.lic"
+                        enabled: xdnaImportEnabled.checked
+                        Layout.fillWidth: true
+                    }
+
+                    Label { text: "Installed runtime root:" }
+                    TextField {
+                        id: xdnaRuntimeRoot
+                        text: "/opt/synapse/xdna/ryzen-ai/1.7.1"
+                        enabled: xdnaImportEnabled.checked
+                        Layout.fillWidth: true
                     }
                 }
             }
