@@ -51,6 +51,7 @@ Item {
 
     property bool hasDs4: hasStrixHalo
     property bool hasXdna: hasStrixHalo && containsPackage("synapse-xdna-runtime")
+    property bool hasWhisperXdna: hasStrixHalo && containsPackage("synapse-whisper-xdna")
     property bool hasVoice: containsPackage("synapse-voice-ai-rocm")
     property bool hasDub: hasStrixHalo
     property bool hasTrellis: hasStrixHalo
@@ -84,6 +85,7 @@ Item {
             "dub_enabled": hasDub ? dubEnabled.checked : false,
             "dub_license_accepted": hasDub ? dubLicenseAccepted.checked : false,
             "dub_model_mode": dubModelMode.currentIndex,
+            "dub_asr_backend": dubAsrBackend.currentIndex,
             "dub_model_root": dubModelRoot.text,
             "dub_translation_endpoint": dubTranslationEndpoint.text,
             "dub_translation_model": dubTranslationModel.text,
@@ -420,6 +422,17 @@ Item {
                         text: "Install a complete and ready-to-use Synapse Dub pipeline"
                         checked: false
                         enabled: dubLicenseAccepted.checked
+                    }
+
+                    Label {
+                        text: "Transcription backend:"
+                        visible: hasWhisperXdna
+                    }
+                    ComboBox {
+                        id: dubAsrBackend
+                        model: ["OpenAI Whisper on ROCm (default)", "XDNA NPU with ROCm fallback"]
+                        enabled: dubEnabled.checked
+                        visible: hasWhisperXdna
                     }
 
                     Label { text: "Model acquisition:" }
