@@ -53,6 +53,8 @@ Item {
     property bool hasXdna: hasStrixHalo && containsPackage("synapse-xdna-runtime")
     property bool hasWhisperXdna: hasStrixHalo && containsPackage("synapse-whisper-xdna")
     property bool hasWhisperX: containsPackage("synapse-whisperx-rocm")
+    property bool hasComfyUI: containsPackage("synapse-comfyui-rocm")
+    property bool hasCvml: containsPackage("synapse-cvml-runtime")
     property bool hasVoice: containsPackage("synapse-voice-ai-rocm")
     property bool hasDub: hasStrixHalo
     property bool hasTrellis: hasStrixHalo
@@ -91,6 +93,14 @@ Item {
             "whisperx_diarization": whisperxDiarization.checked ? "true" : "false",
             "whisperx_diarization_terms": whisperxDiarizationTerms.checked ? "true" : "false",
             "whisperx_hf_token": whisperxHfToken.text,
+            "comfyui_enabled": hasComfyUI ? "true" : "false",
+            "comfyui_model_root": comfyuiModelRoot.text,
+            "comfyui_bind_mode": comfyuiBindMode.currentIndex,
+            "comfyui_port": comfyuiPort.value,
+            "cvml_enabled": hasCvml ? "true" : "false",
+            "cvml_eula_accepted": cvmlEulaAccepted.checked ? "true" : "false",
+            "cvml_source": cvmlSource.text,
+            "cvml_target": cvmlTarget.text,
             "dub_enabled": hasDub ? dubEnabled.checked : false,
             "dub_license_accepted": hasDub ? dubLicenseAccepted.checked : false,
             "dub_model_mode": dubModelMode.currentIndex,
@@ -400,6 +410,54 @@ Item {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
                         text: "Voice samples are enrolled after first login and remain private in the user's local data directory."
+                    }
+                }
+            }
+
+            // ── ComfyUI ROCm Section ──────────────────────────
+            GroupBox {
+                title: "AI / Visual — ComfyUI ROCm"
+                Layout.fillWidth: true
+                visible: hasComfyUI
+                ColumnLayout {
+                    spacing: 8
+                    Label { text: "External model root:" }
+                    TextField { id: comfyuiModelRoot; text: "/var/lib/synapse/comfyui/models"; Layout.fillWidth: true }
+                    Label { text: "Network access:" }
+                    ComboBox { id: comfyuiBindMode; model: ["Localhost only", "Local network"] }
+                    Label { text: "ComfyUI port:" }
+                    SpinBox { id: comfyuiPort; from: 1024; to: 65535; value: 8188 }
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        text: "ComfyUI diffusion runs on Radeon ROCm. Models remain external and community custom nodes are not installed automatically."
+                    }
+                }
+            }
+
+            // ── AMD CVML Section ───────────────────────────────
+            GroupBox {
+                title: "AI / Vision — AMD Ryzen AI CVML"
+                Layout.fillWidth: true
+                visible: hasCvml
+                ColumnLayout {
+                    spacing: 8
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        textFormat: Text.RichText
+                        text: "Review the <a href='https://github.com/amd/RyzenAI-SW/blob/main/Ryzen-AI-CVML-Library/LICENSE.txt'>AMD CVML SDK license</a>. CVML is imported after installation and is not included in the ISO."
+                        onLinkActivated: function(link) { Qt.openUrlExternally(link) }
+                    }
+                    CheckBox { id: cvmlEulaAccepted; text: "I accept the AMD CVML SDK license"; checked: false }
+                    Label { text: "CVML source (github or local ZIP/directory):" }
+                    TextField { id: cvmlSource; text: "github"; Layout.fillWidth: true }
+                    Label { text: "Private installation target:" }
+                    TextField { id: cvmlTarget; text: "/opt/synapse/cvml/current"; Layout.fillWidth: true }
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        text: "CVML can request the NPU explicitly for face detection, face mesh, and depth estimation. It is not a ComfyUI diffusion backend."
                     }
                 }
             }
