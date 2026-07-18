@@ -95,6 +95,7 @@ Item {
             "whisperx_hf_token": whisperxHfToken.text,
             "comfyui_enabled": hasComfyUI ? "true" : "false",
             "comfyui_model_root": comfyuiModelRoot.text,
+            "comfyui_model_mode": comfyuiModelMode.currentIndex,
             "comfyui_bind_mode": comfyuiBindMode.currentIndex,
             "comfyui_port": comfyuiPort.value,
             "cvml_enabled": hasCvml ? "true" : "false",
@@ -423,6 +424,16 @@ Item {
                     spacing: 8
                     Label { text: "External model root:" }
                     TextField { id: comfyuiModelRoot; text: "/var/lib/synapse/comfyui/models"; Layout.fillWidth: true }
+                    Label { text: "Z-Image Turbo acquisition:" }
+                    ComboBox {
+                        id: comfyuiModelMode
+                        model: [
+                            "Automatic: models USB, then Internet",
+                            "Download from Internet",
+                            "Use models USB in place",
+                            "Runtime only — acquire later"
+                        ]
+                    }
                     Label { text: "Network access:" }
                     ComboBox { id: comfyuiBindMode; model: ["Localhost only", "Local network"] }
                     Label { text: "ComfyUI port:" }
