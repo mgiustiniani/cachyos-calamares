@@ -80,6 +80,7 @@ Item {
             "voice_bind_mode": voiceBindMode.currentIndex,
             "voice_port": voicePort.value,
             "voice_language": voiceLanguage.currentText,
+            "voice_asr_backend": voiceAsrBackend.currentIndex,
             "dub_enabled": hasDub ? dubEnabled.checked : false,
             "dub_license_accepted": hasDub ? dubLicenseAccepted.checked : false,
             "dub_model_mode": dubModelMode.currentIndex,
@@ -351,6 +352,21 @@ Item {
                         id: voiceLanguage
                         model: ["it", "en", "fr", "de", "es", "pt"]
                         enabled: voiceEnabled.checked
+                    }
+
+                    Label {
+                        text: "Speech recognition backend:"
+                        visible: hasXdna
+                    }
+                    ComboBox {
+                        id: voiceAsrBackend
+                        model: [
+                            "ROCm GPU (default)",
+                            "XDNA NPU with ROCm/CPU fallback",
+                            "CPU"
+                        ]
+                        enabled: voiceEnabled.checked
+                        visible: hasXdna
                     }
 
                     Label { text: "API exposure:" }
