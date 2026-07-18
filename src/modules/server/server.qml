@@ -87,6 +87,7 @@ Item {
             "whisperx_model_mode": whisperxModelMode.currentIndex,
             "whisperx_model_root": whisperxModelRoot.text,
             "whisperx_language": whisperxLanguage.currentText,
+            "whisperx_all_languages": whisperxAllLanguages.checked ? "true" : "false",
             "whisperx_diarization": whisperxDiarization.checked ? "true" : "false",
             "whisperx_diarization_terms": whisperxDiarizationTerms.checked ? "true" : "false",
             "whisperx_hf_token": whisperxHfToken.text,
@@ -429,8 +430,21 @@ Item {
                     ComboBox {
                         id: whisperxLanguage
                         model: ["it", "en", "de", "es", "fr", "pt", "pl", "ru", "ja", "ko", "zh"]
+                        enabled: !whisperxAllLanguages.checked
+                    }
+                    CheckBox {
+                        id: whisperxAllLanguages
+                        text: "Preserve all 11 alignment languages on external storage (about 15–30 GB)"
+                        checked: false
                     }
 
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        textFormat: Text.RichText
+                        text: "Diarization model terms: <a href='https://huggingface.co/pyannote/speaker-diarization-community-1'>pyannote/speaker-diarization-community-1</a>"
+                        onLinkActivated: function(link) { Qt.openUrlExternally(link) }
+                    }
                     CheckBox {
                         id: whisperxDiarizationTerms
                         text: "I reviewed and accept the selected pyannote model terms"
