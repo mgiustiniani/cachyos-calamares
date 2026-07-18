@@ -52,6 +52,7 @@ Item {
     property bool hasDs4: hasStrixHalo
     property bool hasXdna: hasStrixHalo && containsPackage("synapse-xdna-runtime")
     property bool hasWhisperXdna: hasStrixHalo && containsPackage("synapse-whisper-xdna")
+    property bool hasWhisperX: containsPackage("synapse-whisperx-rocm")
     property bool hasVoice: containsPackage("synapse-voice-ai-rocm")
     property bool hasDub: hasStrixHalo
     property bool hasTrellis: hasStrixHalo
@@ -82,6 +83,13 @@ Item {
             "voice_port": voicePort.value,
             "voice_language": voiceLanguage.currentText,
             "voice_asr_backend": voiceAsrBackend.currentIndex,
+            "whisperx_enabled": hasWhisperX ? "true" : "false",
+            "whisperx_model_mode": whisperxModelMode.currentIndex,
+            "whisperx_model_root": whisperxModelRoot.text,
+            "whisperx_language": whisperxLanguage.currentText,
+            "whisperx_diarization": whisperxDiarization.checked ? "true" : "false",
+            "whisperx_diarization_terms": whisperxDiarizationTerms.checked ? "true" : "false",
+            "whisperx_hf_token": whisperxHfToken.text,
             "dub_enabled": hasDub ? dubEnabled.checked : false,
             "dub_license_accepted": hasDub ? dubLicenseAccepted.checked : false,
             "dub_model_mode": dubModelMode.currentIndex,
@@ -391,6 +399,65 @@ Item {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
                         text: "Voice samples are enrolled after first login and remain private in the user's local data directory."
+                    }
+                }
+            }
+
+            // ── WhisperX post-processing Section ──────────────
+            GroupBox {
+                title: "AI / Audio — WhisperX post-processing"
+                Layout.fillWidth: true
+                visible: hasWhisperX
+
+                ColumnLayout {
+                    spacing: 8
+
+                    Label { text: "Alignment model acquisition:" }
+                    ComboBox {
+                        id: whisperxModelMode
+                        model: ["Download from Internet", "Use existing model directory"]
+                    }
+
+                    Label { text: "External model root:" }
+                    TextField {
+                        id: whisperxModelRoot
+                        text: "/var/lib/synapse/whisperx/models"
+                        Layout.fillWidth: true
+                    }
+
+                    Label { text: "Alignment language:" }
+                    ComboBox {
+                        id: whisperxLanguage
+                        model: ["it", "en", "de", "es", "fr", "pt", "pl", "ru", "ja", "ko", "zh"]
+                    }
+
+                    CheckBox {
+                        id: whisperxDiarizationTerms
+                        text: "I reviewed and accept the selected pyannote model terms"
+                        checked: false
+                        onCheckedChanged: if (!checked) whisperxDiarization.checked = false
+                    }
+                    CheckBox {
+                        id: whisperxDiarization
+                        text: "Download and enable optional speaker diarization"
+                        checked: false
+                        enabled: whisperxDiarizationTerms.checked
+                    }
+
+                    Label {
+                        text: "Hugging Face token for gated diarization model (optional for alignment):"
+                    }
+                    TextField {
+                        id: whisperxHfToken
+                        echoMode: TextInput.Password
+                        enabled: whisperxDiarization.checked
+                        Layout.fillWidth: true
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        text: "WhisperX runs word alignment and optional diarization on ROCm after XDNA Whisper transcription. Model weights remain external."
                     }
                 }
             }
