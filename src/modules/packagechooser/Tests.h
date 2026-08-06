@@ -23,6 +23,7 @@ private Q_SLOTS:
     void initTestCase();
     void testBogus();
     void testAppData();
+    void testNetAddPersistsSemanticSelection();
 };
 
 #endif

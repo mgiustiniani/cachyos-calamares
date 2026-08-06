@@ -15,8 +15,11 @@
 #ifdef HAVE_APPSTREAM_VERSION
 #include "ItemAppStream.h"
 #endif
+#include "Config.h"
 #include "PackageModel.h"
 
+#include "GlobalStorage.h"
+#include "JobQueue.h"
 #include "utils/Logger.h"
 
 #include <QtTest/QtTest>
@@ -81,4 +84,30 @@ PackageChooserTests::testAppData()
               QStringLiteral( "Calamares is een installatieprogramma voor Linux distributies." ) );
     QVERIFY( !p2.screenshotPath.isEmpty() );
 #endif
+}
+
+void
+PackageChooserTests::testNetAddPersistsSemanticSelection()
+{
+    if ( !Calamares::JobQueue::instance() )
+    {
+        (void)new Calamares::JobQueue( nullptr );
+    }
+
+    auto* gs = Calamares::JobQueue::instance()->globalStorage();
+    QVERIFY( gs != nullptr );
+    const QString key = QStringLiteral( "packagechooser_ai" );
+    gs->remove( key );
+
+    Config config;
+    config.setDefaultId( Calamares::ModuleSystem::InstanceKey( "packagechooser", "ai" ) );
+    QVariantMap configuration;
+    configuration.insert( QStringLiteral( "method" ), QStringLiteral( "netinstall-add" ) );
+    config.setConfigurationMap( configuration );
+
+    config.updateGlobalStorage( QStringList { QStringLiteral( "Strix Halo platform generics" ) } );
+    QCOMPARE( gs->value( key ).toString(), QStringLiteral( "Strix Halo platform generics" ) );
+
+    config.updateGlobalStorage( QStringList() );
+    QVERIFY( !gs->contains( key ) );
 }

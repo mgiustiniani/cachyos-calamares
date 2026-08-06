@@ -14,6 +14,7 @@
  * The Server tab is the product surface for ROCm-backed AI/server products.
  */
 
+import io.calamares.core 1.0
 import io.calamares.ui 1.0
 
 import QtQuick 2.7
@@ -27,8 +28,8 @@ Item {
     width: 740
     height: 420
 
-    property var selectedPackages: configStorage.get("netinstallPackages") || []
-    property var aiSelection: configStorage.get("packagechooser_ai") || ""
+    property var selectedPackages: Global.value("netinstallPackages") || []
+    property var aiSelection: Global.value("packagechooser_ai") || ""
 
     function containsPackage(pkg) {
         return selectedPackages && selectedPackages.indexOf(pkg) !== -1
@@ -67,7 +68,7 @@ Item {
             "vnc_enabled": hasVnc ? vncEnabled.checked : false,
             "vnc_port": vncPort.value,
             "vnc_password": vncPassword.text,
-            "llm_enabled": hasDs4 ? llmEnabled.checked : false,
+            "llm_enabled": hasDs4 && llmEnabled.checked ? "true" : "false",
             "llm_model": llmModel.currentIndex,
             "llm_mode": llmMode.currentIndex,
             "llm_port": llmPort.value,
@@ -124,7 +125,11 @@ Item {
             "trellis_model_root": trellisModelRoot.text,
             "trellis_pipeline_type": trellisPipelineType.currentText
         }
-        configStorage.set("server_config", config)
+        Global.insert("server_config", config)
+    }
+
+    function onLeave() {
+        saveConfig()
     }
 
     Component.onDestruction: saveConfig()

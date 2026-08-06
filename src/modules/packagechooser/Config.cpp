@@ -133,11 +133,25 @@ Config::updateGlobalStorage( const QStringList& selected ) const
     {
         cWarning() << "Inconsistent package choices -- both model and single-selection QML";
     }
+
+    // Persist the semantic selection independently from the package handoff
+    // method. Later product pages need the chosen profile ID even when this
+    // instance writes netinstallAdd or package operations.
+    auto* gs = Calamares::JobQueue::instance()->globalStorage();
+    const QString selectionKey = make_gs_key( m_defaultId );
+    const QString selectionValue = selected.join( ',' );
+    if ( selectionValue.isEmpty() )
+    {
+        gs->remove( selectionKey );
+    }
+    else
+    {
+        gs->insert( selectionKey, selectionValue );
+    }
+
     if ( m_method == PackageChooserMethod::Legacy )
     {
-        QString value = selected.join( ',' );
-        Calamares::JobQueue::instance()->globalStorage()->insert( make_gs_key( m_defaultId ), value );
-        cDebug() << m_defaultId << "selected" << value;
+        cDebug() << m_defaultId << "selected" << selectionValue;
     }
     else if ( m_method == PackageChooserMethod::Packages )
     {
@@ -156,7 +170,6 @@ Config::updateGlobalStorage( const QStringList& selected ) const
         else
         {
             // If an earlier packagechooser instance added this data to global storage, combine them
-            auto* gs = Calamares::JobQueue::instance()->globalStorage();
             if ( gs->contains( "netinstallAdd" ) )
             {
                 netinstallDataList
@@ -168,7 +181,6 @@ Config::updateGlobalStorage( const QStringList& selected ) const
     else if ( m_method == PackageChooserMethod::NetSelect )
     {
         cDebug() << m_defaultId << "groups to select in netinstall" << selected;
-        auto* gs = Calamares::JobQueue::instance()->globalStorage();
 
         QStringList currentNetinstallSelect;
         if ( gs->contains( "netinstallSelect" ) )

@@ -186,7 +186,6 @@
           - barrier
           - input-leap
           - synapse-deskflow
-          - synapse-ds4-git
 - name: "Java development tools"
   description: "Maven, Gradle and RefactorKit toolchain for Java/JVM development. RefactorKit ships with its own runtime and provides deterministic Java refactoring from the CLI."
   description[it]: "Toolchain Maven, Gradle e RefactorKit per sviluppo Java/JVM. RefactorKit include il proprio runtime e fornisce refactoring Java deterministico da CLI."
